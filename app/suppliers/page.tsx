@@ -178,15 +178,15 @@ export default function SuppliersPage() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
                       <span className="truncate">{supplier.email}</span>
                     </div>
                     <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
-                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 shrink-0" />
                       {supplier.phone}
                     </div>
                     <div className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground">
-                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mt-0.5 flex-shrink-0" />
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mt-0.5 shrink-0" />
                       <span className="line-clamp-2">{supplier.address}</span>
                     </div>
                   </CardContent>

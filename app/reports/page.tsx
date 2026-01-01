@@ -162,7 +162,7 @@ export default function ReportsPage() {
                   <CardDescription className="text-xs sm:text-sm">6 month trend comparison</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
+                  <ResponsiveContainer width="100%" height={250}>
                     <LineChart data={monthlyData}>
                       <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
@@ -187,7 +187,7 @@ export default function ReportsPage() {
                   <CardDescription className="text-xs sm:text-sm">By revenue generated</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
+                  <ResponsiveContainer width="100%" height={250}>
                     <BarChart data={topProducts}>
                       <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
@@ -204,7 +204,7 @@ export default function ReportsPage() {
                   <CardDescription className="text-xs sm:text-sm">Current inventory health</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center">
-                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
+                  <ResponsiveContainer width="100%" height={250}>
                     <PieChart>
                       <Pie data={stockStatus} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} className="sm:outerRadius-100" label>
                         {stockStatus.map((entry, index) => (
@@ -224,7 +224,7 @@ export default function ReportsPage() {
                   <CardDescription className="text-xs sm:text-sm">Category distribution</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
+                  <ResponsiveContainer width="100%" height={250}>
                     <BarChart data={categoryChart}>
                       <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
