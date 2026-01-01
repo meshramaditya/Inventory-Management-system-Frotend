@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+📦 Inventory Management System
+<img width="1919" height="1079" alt="Screenshot 2026-01-01 130845" src="https://github.com/user-attachments/assets/9c66337a-6bc6-4ff1-99d8-488809ed32b7" />
 
-## Getting Started
+✨ Features
+📊 Real-time inventory tracking with low stock alerts
+🔐 Secure authentication with role-based access control
+📱 Responsive design for all devices
+📈 Analytics dashboard with visual insights
+🔍 Advanced search and filtering
+📝 Complete activity logs and audit trails
 
-First, run the development server:
+🛠️ Tech Stack
+Frontend: Next.js, Tailwind CSS, Redux, Axios
+Backend: Go, MongoDB, JWT
+Tools: Git, Docker, Vercel, Postman
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🚀 Quick Start
+# Clone repository
+git clone https://github.com/meshramaditya/inventory-management-system.git
+cd inventory-management-system
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Install dependencies
+cd backend && npm install
+cd ../frontend && npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+👥 User Roles
+Role    Permissions
+Admin   Full access to all features
+Manager Manage products, inventory, view reports
+Staff   View products, manage stock
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+👨‍💻 Author
+Aditya Meshram
 
-## Learn More
+Website: adityameshram.me
+GitHub: @meshramaditya
+LinkedIn: aditya-meshram
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<div align="center">
+Made with ❤️ by Aditya Meshram
+</div>
