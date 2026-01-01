@@ -71,6 +71,8 @@ interface StoreContextType {
   setPurchaseOrders: (orders: PurchaseOrder[]) => void
   sales: Sale[]
   setSales: (sales: Sale[]) => void
+  sidebarOpen: boolean
+  setSidebarOpen: (open: boolean) => void
 }
 
 const StoreContext = createContext<StoreContextType | undefined>(undefined)
@@ -220,6 +222,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
   const [suppliers, setSuppliers] = useState<Supplier[]>(mockSuppliers)
   const [purchaseOrders, setPurchaseOrders] = useState<PurchaseOrder[]>(mockPurchaseOrders)
   const [sales, setSales] = useState<Sale[]>(mockSales)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
 
   return (
     <StoreContext.Provider
@@ -236,6 +239,8 @@ export function StoreProvider({ children }: { children: ReactNode }) {
         setPurchaseOrders,
         sales,
         setSales,
+        sidebarOpen,
+        setSidebarOpen,
       }}
     >
       {children}

@@ -65,16 +65,17 @@ export default function CategoriesPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Categories</h1>
-                <p className="text-muted-foreground">Organize your products into categories</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Categories</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Organize your products into categories</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    className="w-full sm:w-auto"
                     onClick={() => {
                       setEditingCategory(null)
                       setFormData({ name: "", description: "" })
@@ -84,10 +85,10 @@ export default function CategoriesPage() {
                     Add Category
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>{editingCategory ? "Edit Category" : "Add New Category"}</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">{editingCategory ? "Edit Category" : "Add New Category"}</DialogTitle>
+                    <DialogDescription className="text-sm">
                       {editingCategory ? "Update category information" : "Enter category details"}
                     </DialogDescription>
                   </DialogHeader>
@@ -121,32 +122,32 @@ export default function CategoriesPage() {
               </Dialog>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {categories.map((category) => (
                 <Card key={category.id}>
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-                          <FolderTree className="h-5 w-5 text-primary" />
+                      <div className="flex items-center gap-2 sm:gap-3">
+                        <div className="flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-primary/10">
+                          <FolderTree className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                         </div>
                         <div>
-                          <CardTitle className="text-lg">{category.name}</CardTitle>
-                          <CardDescription className="text-sm">{category.productCount} products</CardDescription>
+                          <CardTitle className="text-base sm:text-lg">{category.name}</CardTitle>
+                          <CardDescription className="text-xs sm:text-sm">{category.productCount} products</CardDescription>
                         </div>
                       </div>
                       <div className="flex gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => handleEdit(category)}>
-                          <Edit className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(category)}>
+                          <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(category.id)}>
-                          <Trash2 className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleDelete(category.id)}>
+                          <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-muted-foreground">{category.description}</p>
+                    <p className="text-xs sm:text-sm text-muted-foreground">{category.description}</p>
                   </CardContent>
                 </Card>
               ))}

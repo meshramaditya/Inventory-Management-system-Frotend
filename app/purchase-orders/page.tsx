@@ -78,24 +78,24 @@ export default function PurchaseOrdersPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Purchase Orders</h1>
-                <p className="text-muted-foreground">Manage orders from suppliers</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Purchase Orders</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Manage orders from suppliers</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button>
+                  <Button className="w-full sm:w-auto">
                     <Plus className="mr-2 h-4 w-4" />
                     Create PO
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Create Purchase Order</DialogTitle>
-                    <DialogDescription>Create a new order from a supplier</DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">Create Purchase Order</DialogTitle>
+                    <DialogDescription className="text-sm">Create a new order from a supplier</DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
@@ -134,7 +134,7 @@ export default function PurchaseOrdersPage() {
                         </SelectContent>
                       </Select>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="quantity">Quantity</Label>
                         <Input
@@ -180,33 +180,34 @@ export default function PurchaseOrdersPage() {
               </Dialog>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Pending Orders</CardDescription>
-                  <CardTitle className="text-3xl">{pendingOrders}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Pending Orders</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">{pendingOrders}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Approved Orders</CardDescription>
-                  <CardTitle className="text-3xl">{approvedOrders}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Approved Orders</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">{approvedOrders}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Total PO Value</CardDescription>
-                  <CardTitle className="text-3xl">${totalValue.toLocaleString()}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Total PO Value</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">${totalValue.toLocaleString()}</CardTitle>
                 </CardHeader>
               </Card>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>All Purchase Orders</CardTitle>
+                <CardTitle className="text-base sm:text-lg">All Purchase Orders</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                {/* Desktop Table View */}
+                <div className="hidden md:block rounded-md border">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -275,6 +276,75 @@ export default function PurchaseOrdersPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-3">
+                  {purchaseOrders.map((po) => (
+                    <Card key={po.id}>
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <FileText className="h-4 w-4 text-muted-foreground" />
+                            <h3 className="font-semibold text-sm">{po.id}</h3>
+                          </div>
+                          <Badge variant="secondary" className={getStatusColor(po.status)}>
+                            {po.status}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+                          <div>
+                            <span className="text-muted-foreground">Supplier:</span>
+                            <p className="font-medium">{po.supplier}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Total:</span>
+                            <p className="font-medium">${po.total.toLocaleString()}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Order Date:</span>
+                            <p className="font-medium">{po.orderDate}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Expected:</span>
+                            <p className="font-medium">{po.expectedDate}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          {po.status === "pending" && (
+                            <Button
+                              variant="outline"
+                              className="flex-1 h-8 text-xs"
+                              onClick={() => handleStatusUpdate(po.id, "approved")}
+                            >
+                              <CheckCircle className="h-3 w-3 mr-1 text-green-600" />
+                              Approve
+                            </Button>
+                          )}
+                          {po.status === "approved" && (
+                            <Button
+                              variant="outline"
+                              className="flex-1 h-8 text-xs"
+                              onClick={() => handleStatusUpdate(po.id, "received")}
+                            >
+                              <CheckCircle className="h-3 w-3 mr-1 text-blue-600" />
+                              Received
+                            </Button>
+                          )}
+                          {(po.status === "pending" || po.status === "approved") && (
+                            <Button
+                              variant="outline"
+                              className="flex-1 h-8 text-xs"
+                              onClick={() => handleStatusUpdate(po.id, "cancelled")}
+                            >
+                              <XCircle className="h-3 w-3 mr-1 text-red-600" />
+                              Cancel
+                            </Button>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>

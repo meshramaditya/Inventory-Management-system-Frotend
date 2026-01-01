@@ -80,27 +80,27 @@ export default function SalesPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Sales</h1>
-                <p className="text-muted-foreground">Record and manage sales transactions</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Sales</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Record and manage sales transactions</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button onClick={() => setCart([])}>
+                  <Button className="w-full sm:w-auto" onClick={() => setCart([])}>
                     <Plus className="mr-2 h-4 w-4" />
                     New Sale
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Record Sale</DialogTitle>
-                    <DialogDescription>Add products to create a sale transaction</DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">Record Sale</DialogTitle>
+                    <DialogDescription className="text-sm">Add products to create a sale transaction</DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-3 gap-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
                       <div className="col-span-2 space-y-2">
                         <Label htmlFor="product">Product</Label>
                         <Select value={selectedProduct} onValueChange={setSelectedProduct}>
@@ -212,33 +212,34 @@ export default function SalesPage() {
               </Dialog>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Total Sales</CardDescription>
-                  <CardTitle className="text-3xl">${totalSales.toLocaleString()}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Total Sales</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">${totalSales.toLocaleString()}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Today&apos;s Sales</CardDescription>
-                  <CardTitle className="text-3xl">{todaySales}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Today&apos;s Sales</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">{todaySales}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Total Transactions</CardDescription>
-                  <CardTitle className="text-3xl">{sales.length}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Total Transactions</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">{sales.length}</CardTitle>
                 </CardHeader>
               </Card>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Recent Sales</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                {/* Desktop Table View */}
+                <div className="hidden md:block rounded-md border">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -279,6 +280,50 @@ export default function SalesPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-3">
+                  {sales.map((sale) => (
+                    <Card key={sale.id}>
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            <ShoppingBag className="h-4 w-4 text-muted-foreground" />
+                            <h3 className="font-semibold text-sm">{sale.id}</h3>
+                          </div>
+                          <Badge
+                            variant="secondary"
+                            className={
+                              sale.status === "completed"
+                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+                                : "bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-100"
+                            }
+                          >
+                            {sale.status}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">Date:</span>
+                            <p className="font-medium">{sale.date}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Items:</span>
+                            <p className="font-medium">{sale.products.length} items</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Payment:</span>
+                            <p className="font-medium">{sale.paymentMethod}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Total:</span>
+                            <p className="font-semibold">${sale.total.toFixed(2)}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>

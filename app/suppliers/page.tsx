@@ -70,16 +70,17 @@ export default function SuppliersPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Suppliers</h1>
-                <p className="text-muted-foreground">Manage your supplier relationships</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Suppliers</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Manage your supplier relationships</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    className="w-full sm:w-auto"
                     onClick={() => {
                       setEditingSupplier(null)
                       setFormData({ name: "", contact: "", email: "", phone: "", address: "" })
@@ -89,10 +90,10 @@ export default function SuppliersPage() {
                     Add Supplier
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>{editingSupplier ? "Edit Supplier" : "Add New Supplier"}</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">{editingSupplier ? "Edit Supplier" : "Add New Supplier"}</DialogTitle>
+                    <DialogDescription className="text-sm">
                       {editingSupplier ? "Update supplier information" : "Enter supplier details"}
                     </DialogDescription>
                   </DialogHeader>
@@ -115,7 +116,7 @@ export default function SuppliersPage() {
                         required
                       />
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="email">Email</Label>
                         <Input
@@ -156,37 +157,37 @@ export default function SuppliersPage() {
               </Dialog>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               {suppliers.map((supplier) => (
                 <Card key={supplier.id}>
                   <CardHeader>
                     <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle>{supplier.name}</CardTitle>
-                        <CardDescription>{supplier.contact}</CardDescription>
+                      <div className="flex-1 min-w-0">
+                        <CardTitle className="text-base sm:text-lg truncate">{supplier.name}</CardTitle>
+                        <CardDescription className="text-xs sm:text-sm truncate">{supplier.contact}</CardDescription>
                       </div>
                       <div className="flex gap-1">
-                        <Button variant="ghost" size="icon" onClick={() => handleEdit(supplier)}>
-                          <Edit className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleEdit(supplier)}>
+                          <Edit className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
-                        <Button variant="ghost" size="icon" onClick={() => handleDelete(supplier.id)}>
-                          <Trash2 className="h-4 w-4" />
+                        <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => handleDelete(supplier.id)}>
+                          <Trash2 className="h-3 w-3 sm:h-4 sm:w-4" />
                         </Button>
                       </div>
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Mail className="h-4 w-4" />
-                      {supplier.email}
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                      <Mail className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                      <span className="truncate">{supplier.email}</span>
                     </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Phone className="h-4 w-4" />
+                    <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                      <Phone className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
                       {supplier.phone}
                     </div>
-                    <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                      <MapPin className="h-4 w-4 mt-0.5" />
-                      <span>{supplier.address}</span>
+                    <div className="flex items-start gap-2 text-xs sm:text-sm text-muted-foreground">
+                      <MapPin className="h-3 w-3 sm:h-4 sm:w-4 mt-0.5 flex-shrink-0" />
+                      <span className="line-clamp-2">{supplier.address}</span>
                     </div>
                   </CardContent>
                 </Card>

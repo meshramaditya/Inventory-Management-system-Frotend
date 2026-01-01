@@ -84,19 +84,19 @@ export default function ReportsPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Reports & Analytics</h1>
-              <p className="text-muted-foreground">Comprehensive business insights and metrics</p>
+              <h1 className="text-2xl sm:text-3xl font-bold">Reports & Analytics</h1>
+              <p className="text-sm sm:text-base text-muted-foreground">Comprehensive business insights and metrics</p>
             </div>
 
             {/* Key Metrics */}
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5">
+            <div className="grid gap-3 sm:gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
               <Card>
-                <CardHeader className="flex flex-row items-center justify-between pb-2">
-                  <CardTitle className="text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
-                  <DollarSign className="h-4 w-4 text-muted-foreground" />
+                <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
+                  <CardTitle className="text-xs sm:text-sm font-medium text-muted-foreground">Total Revenue</CardTitle>
+                  <DollarSign className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                 </CardHeader>
                 <CardContent>
                   <div className="text-2xl font-bold">${totalRevenue.toLocaleString()}</div>
@@ -155,17 +155,17 @@ export default function ReportsPage() {
             </div>
 
             {/* Charts */}
-            <div className="grid gap-4 md:grid-cols-2">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 md:grid-cols-2">
               <Card>
                 <CardHeader>
-                  <CardTitle>Sales vs Purchases</CardTitle>
-                  <CardDescription>6 month trend comparison</CardDescription>
+                  <CardTitle className="text-base sm:text-lg">Sales vs Purchases</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">6 month trend comparison</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                     <LineChart data={monthlyData}>
-                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                      <XAxis dataKey="month" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <Tooltip />
                       <Legend />
                       <Line type="monotone" dataKey="sales" stroke="hsl(var(--chart-1))" strokeWidth={2} name="Sales" />
@@ -183,14 +183,14 @@ export default function ReportsPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Top Selling Products</CardTitle>
-                  <CardDescription>By revenue generated</CardDescription>
+                  <CardTitle className="text-base sm:text-lg">Top Selling Products</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">By revenue generated</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                     <BarChart data={topProducts}>
-                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <Tooltip />
                       <Bar dataKey="revenue" fill="hsl(var(--chart-1))" radius={[4, 4, 0, 0]} />
                     </BarChart>
@@ -200,13 +200,13 @@ export default function ReportsPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Stock Status Distribution</CardTitle>
-                  <CardDescription>Current inventory health</CardDescription>
+                  <CardTitle className="text-base sm:text-lg">Stock Status Distribution</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Current inventory health</CardDescription>
                 </CardHeader>
                 <CardContent className="flex items-center justify-center">
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                     <PieChart>
-                      <Pie data={stockStatus} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} label>
+                      <Pie data={stockStatus} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={80} className="sm:outerRadius-100" label>
                         {stockStatus.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
@@ -220,14 +220,14 @@ export default function ReportsPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Products by Category</CardTitle>
-                  <CardDescription>Category distribution</CardDescription>
+                  <CardTitle className="text-base sm:text-lg">Products by Category</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Category distribution</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ResponsiveContainer width="100%" height={300}>
+                  <ResponsiveContainer width="100%" height={250} className="sm:h-[300px]">
                     <BarChart data={categoryChart}>
-                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                      <XAxis dataKey="name" stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
+                      <YAxis stroke="hsl(var(--muted-foreground))" fontSize={10} className="sm:text-xs" />
                       <Tooltip />
                       <Bar dataKey="value" fill="hsl(var(--chart-3))" radius={[4, 4, 0, 0]} />
                     </BarChart>

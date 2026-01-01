@@ -120,16 +120,17 @@ export default function ProductsPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Products</h1>
-                <p className="text-muted-foreground">Manage your product inventory</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Manage your product inventory</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
                   <Button
+                    className="w-full sm:w-auto"
                     onClick={() => {
                       setEditingProduct(null)
                       setFormData({
@@ -148,15 +149,15 @@ export default function ProductsPage() {
                     Add Product
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-2xl">
+                <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>{editingProduct ? "Edit Product" : "Add New Product"}</DialogTitle>
-                    <DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">{editingProduct ? "Edit Product" : "Add New Product"}</DialogTitle>
+                    <DialogDescription className="text-sm">
                       {editingProduct ? "Update product information" : "Enter product details"}
                     </DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="name">Product Name</Label>
                         <Input
@@ -176,7 +177,7 @@ export default function ProductsPage() {
                         />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="category">Category</Label>
                         <Select
@@ -214,7 +215,7 @@ export default function ProductsPage() {
                         </Select>
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="quantity">Quantity</Label>
                         <Input
@@ -236,7 +237,7 @@ export default function ProductsPage() {
                         />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
                         <Label htmlFor="cost">Cost Price</Label>
                         <Input
@@ -272,20 +273,21 @@ export default function ProductsPage() {
             </div>
 
             <Card>
-              <CardContent className="p-6">
+              <CardContent className="p-3 sm:p-4 md:p-6">
                 <div className="mb-4 flex items-center gap-2">
                   <div className="relative flex-1">
                     <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
                     <Input
-                      placeholder="Search by name, SKU, or category..."
+                      placeholder="Search..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="pl-10"
+                      className="pl-10 h-9 text-sm"
                     />
                   </div>
                 </div>
 
-                <div className="rounded-md border">
+                {/* Desktop Table View */}
+                <div className="hidden md:block rounded-md border">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -327,6 +329,53 @@ export default function ProductsPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-3">
+                  {filteredProducts.map((product) => (
+                    <Card key={product.id}>
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-sm">{product.name}</h3>
+                            <p className="text-xs text-muted-foreground">SKU: {product.sku}</p>
+                          </div>
+                          <Badge className={getStatusColor(product.status)} variant="secondary">
+                            {product.status}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs mb-3">
+                          <div>
+                            <span className="text-muted-foreground">Category:</span>
+                            <p className="font-medium">{product.category}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Quantity:</span>
+                            <p className="font-medium">{product.quantity}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Cost:</span>
+                            <p className="font-medium">${product.cost.toFixed(2)}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Price:</span>
+                            <p className="font-medium">${product.price.toFixed(2)}</p>
+                          </div>
+                        </div>
+                        <div className="flex gap-2">
+                          <Button variant="outline" className="flex-1 h-8 text-xs" onClick={() => handleEdit(product)}>
+                            <Edit className="h-3 w-3 mr-1" />
+                            Edit
+                          </Button>
+                          <Button variant="outline" className="flex-1 h-8 text-xs" onClick={() => handleDelete(product.id)}>
+                            <Trash2 className="h-3 w-3 mr-1" />
+                            Delete
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>

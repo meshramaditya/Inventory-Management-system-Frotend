@@ -64,24 +64,24 @@ export default function InventoryPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
               <div>
-                <h1 className="text-3xl font-bold">Inventory Management</h1>
-                <p className="text-muted-foreground">Track and adjust stock levels</p>
+                <h1 className="text-2xl sm:text-3xl font-bold">Inventory Management</h1>
+                <p className="text-sm sm:text-base text-muted-foreground">Track and adjust stock levels</p>
               </div>
               <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
                 <DialogTrigger asChild>
-                  <Button>
+                  <Button className="w-full sm:w-auto">
                     <Package2 className="mr-2 h-4 w-4" />
                     Adjust Stock
                   </Button>
                 </DialogTrigger>
-                <DialogContent>
+                <DialogContent className="max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
-                    <DialogTitle>Stock Adjustment</DialogTitle>
-                    <DialogDescription>Add or remove items from inventory</DialogDescription>
+                    <DialogTitle className="text-lg sm:text-xl">Stock Adjustment</DialogTitle>
+                    <DialogDescription className="text-sm">Add or remove items from inventory</DialogDescription>
                   </DialogHeader>
                   <form onSubmit={handleSubmit} className="space-y-4">
                     <div className="space-y-2">
@@ -101,7 +101,7 @@ export default function InventoryPage() {
                     </div>
                     <div className="space-y-2">
                       <Label>Adjustment Type</Label>
-                      <div className="flex gap-2">
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <Button
                           type="button"
                           variant={adjustmentType === "add" ? "default" : "outline"}
@@ -153,33 +153,34 @@ export default function InventoryPage() {
               </Dialog>
             </div>
 
-            <div className="grid gap-4 md:grid-cols-3">
+            <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Total Items in Stock</CardDescription>
-                  <CardTitle className="text-3xl">{totalItems.toLocaleString()}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Total Items in Stock</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl">{totalItems.toLocaleString()}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Low Stock Items</CardDescription>
-                  <CardTitle className="text-3xl text-orange-600">{lowStockCount}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Low Stock Items</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl text-orange-600">{lowStockCount}</CardTitle>
                 </CardHeader>
               </Card>
               <Card>
                 <CardHeader className="pb-3">
-                  <CardDescription>Out of Stock</CardDescription>
-                  <CardTitle className="text-3xl text-destructive">{outOfStockCount}</CardTitle>
+                  <CardDescription className="text-xs sm:text-sm">Out of Stock</CardDescription>
+                  <CardTitle className="text-2xl sm:text-3xl text-destructive">{outOfStockCount}</CardTitle>
                 </CardHeader>
               </Card>
             </div>
 
             <Card>
               <CardHeader>
-                <CardTitle>Current Stock Levels</CardTitle>
+                <CardTitle className="text-base sm:text-lg">Current Stock Levels</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="rounded-md border">
+                {/* Desktop Table View */}
+                <div className="hidden md:block rounded-md border">
                   <Table>
                     <TableHeader>
                       <TableRow>
@@ -221,6 +222,52 @@ export default function InventoryPage() {
                       ))}
                     </TableBody>
                   </Table>
+                </div>
+
+                {/* Mobile Card View */}
+                <div className="md:hidden space-y-3">
+                  {products.map((product) => (
+                    <Card key={product.id}>
+                      <CardContent className="p-3">
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex-1">
+                            <h3 className="font-semibold text-sm">{product.name}</h3>
+                            <p className="text-xs text-muted-foreground">SKU: {product.sku}</p>
+                          </div>
+                          <Badge
+                            variant="secondary"
+                            className={
+                              product.status === "in-stock"
+                                ? "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100"
+                                : product.status === "low-stock"
+                                  ? "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-100"
+                                  : "bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100"
+                            }
+                          >
+                            {product.status}
+                          </Badge>
+                        </div>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <span className="text-muted-foreground">Category:</span>
+                            <p className="font-medium">{product.category}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Stock:</span>
+                            <p className="font-semibold">{product.quantity}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Reorder:</span>
+                            <p className="font-medium">{product.reorderLevel}</p>
+                          </div>
+                          <div>
+                            <span className="text-muted-foreground">Updated:</span>
+                            <p className="font-medium">{product.lastUpdated}</p>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
                 </div>
               </CardContent>
             </Card>

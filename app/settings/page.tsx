@@ -24,21 +24,21 @@ export default function SettingsPage() {
       <Sidebar />
       <div className="flex flex-1 flex-col">
         <Header />
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
-          <div className="space-y-6">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-3 sm:p-4 md:p-6">
+          <div className="space-y-4 md:space-y-6">
             <div>
-              <h1 className="text-3xl font-bold">Settings</h1>
-              <p className="text-muted-foreground">Manage your account and application preferences</p>
+              <h1 className="text-2xl sm:text-3xl font-bold">Settings</h1>
+              <p className="text-sm sm:text-base text-muted-foreground">Manage your account and application preferences</p>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-2">
+            <div className="grid gap-4 sm:gap-6 lg:grid-cols-2">
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
-                    <User className="h-5 w-5" />
-                    <CardTitle>Profile Settings</CardTitle>
+                    <User className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <CardTitle className="text-base sm:text-lg">Profile Settings</CardTitle>
                   </div>
-                  <CardDescription>Update your personal information</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">Update your personal information</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
@@ -60,36 +60,36 @@ export default function SettingsPage() {
               <Card>
                 <CardHeader>
                   <div className="flex items-center gap-2">
-                    <Bell className="h-5 w-5" />
-                    <CardTitle>Notifications</CardTitle>
+                    <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
+                    <CardTitle className="text-base sm:text-lg">Notifications</CardTitle>
                   </div>
-                  <CardDescription>Configure your notification preferences</CardDescription>
+                  <CardDescription className="text-xs sm:text-sm">Configure your notification preferences</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">Low Stock Alerts</p>
-                      <p className="text-sm text-muted-foreground">Get notified when items are running low</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">Low Stock Alerts</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Get notified when items are running low</p>
                     </div>
                     <Switch
                       checked={notifications.lowStock}
                       onCheckedChange={(checked) => setNotifications({ ...notifications, lowStock: checked })}
                     />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">New Purchase Orders</p>
-                      <p className="text-sm text-muted-foreground">Alerts for new incoming orders</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">New Purchase Orders</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Alerts for new incoming orders</p>
                     </div>
                     <Switch
                       checked={notifications.newOrders}
                       onCheckedChange={(checked) => setNotifications({ ...notifications, newOrders: checked })}
                     />
                   </div>
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <p className="font-medium">Daily Sales Reports</p>
-                      <p className="text-sm text-muted-foreground">Receive daily sales summaries</p>
+                  <div className="flex items-center justify-between gap-3">
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium">Daily Sales Reports</p>
+                      <p className="text-xs sm:text-sm text-muted-foreground">Receive daily sales summaries</p>
                     </div>
                     <Switch
                       checked={notifications.salesReports}
