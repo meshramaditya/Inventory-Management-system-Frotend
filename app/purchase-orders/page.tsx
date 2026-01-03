@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,6 +24,7 @@ import { useStore } from "@/lib/store"
 import { Plus, FileText, CheckCircle, XCircle } from "lucide-react"
 
 export default function PurchaseOrdersPage() {
+  useAuth()
   const { purchaseOrders, setPurchaseOrders, suppliers, products } = useStore()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [formData, setFormData] = useState({

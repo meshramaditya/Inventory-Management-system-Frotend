@@ -3,6 +3,7 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -24,6 +25,7 @@ import { useStore } from "@/lib/store"
 import { Package2, ArrowUpCircle, ArrowDownCircle } from "lucide-react"
 
 export default function InventoryPage() {
+  useAuth()
   const { products, setProducts } = useStore()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState("")

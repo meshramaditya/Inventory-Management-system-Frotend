@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,6 +22,7 @@ import { useStore } from "@/lib/store"
 import { Plus, Edit, Trash2, Mail, Phone, MapPin } from "lucide-react"
 
 export default function SuppliersPage() {
+  useAuth()
   const { suppliers, setSuppliers } = useStore()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingSupplier, setEditingSupplier] = useState<string | null>(null)

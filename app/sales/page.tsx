@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -23,6 +24,7 @@ import { useStore } from "@/lib/store"
 import { Plus, ShoppingBag, X } from "lucide-react"
 
 export default function SalesPage() {
+  useAuth()
   const { sales, setSales, products } = useStore()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [cart, setCart] = useState<{ productId: string; quantity: number; price: number }[]>([])

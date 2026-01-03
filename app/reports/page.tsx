@@ -3,6 +3,7 @@
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useAuth } from "@/lib/useAuth"
 import { useStore } from "@/lib/store"
 import { DollarSign, Package, TrendingUp, AlertCircle, ShoppingCart } from "lucide-react"
 import {
@@ -21,6 +22,7 @@ import {
 } from "recharts"
 
 export default function ReportsPage() {
+  useAuth()
   const { products, sales, purchaseOrders } = useStore()
 
   // Calculate metrics

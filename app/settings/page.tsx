@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -12,6 +13,7 @@ import { useStore } from "@/lib/store"
 import { User, Bell, Shield, Database } from "lucide-react"
 
 export default function SettingsPage() {
+  useAuth()
   const { user } = useStore()
   const [notifications, setNotifications] = useState({
     lowStock: true,

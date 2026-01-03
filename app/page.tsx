@@ -3,11 +3,13 @@
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { useAuth } from "@/lib/useAuth"
 import { useStore } from "@/lib/store"
 import { Package, TrendingDown, TrendingUp, AlertTriangle, DollarSign } from "lucide-react"
 import { Bar, BarChart, Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip } from "recharts"
 
 export default function DashboardPage() {
+  useAuth()
   const { products, sales } = useStore()
 
   // Calculate stats

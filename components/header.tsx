@@ -1,12 +1,19 @@
 "use client"
 
-import { Bell, Search, User, Menu } from "lucide-react"
+import { Bell, Search, User, Menu, LogOut } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useStore } from "@/lib/store"
 
 export function Header() {
-  const { user, sidebarOpen, setSidebarOpen } = useStore()
+  const router = useRouter()
+  const { user, sidebarOpen, setSidebarOpen, setUser } = useStore()
+
+  const handleLogout = () => {
+    setUser(null)
+    router.push("/login")
+  }
 
   return (
     <header className="flex h-14 md:h-16 items-center justify-between border-b bg-background px-3 md:px-6">
@@ -46,6 +53,15 @@ export function Header() {
             <User className="h-4 w-4" />
           </div>
         </div>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={handleLogout}
+          className="h-9 w-9"
+          title="Logout"
+        >
+          <LogOut className="h-4 w-4 md:h-5 md:w-5" />
+        </Button>
       </div>
     </header>
   )

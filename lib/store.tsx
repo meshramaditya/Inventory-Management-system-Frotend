@@ -211,12 +211,7 @@ const mockSales: Sale[] = [
 ]
 
 export function StoreProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>({
-    id: "1",
-    name: "Admin User",
-    email: "admin@inventory.com",
-    role: "admin",
-  })
+  const [user, setUser] = useState<User | null>(null)
   const [products, setProducts] = useState<Product[]>(mockProducts)
   const [categories, setCategories] = useState<Category[]>(mockCategories)
   const [suppliers, setSuppliers] = useState<Supplier[]>(mockSuppliers)

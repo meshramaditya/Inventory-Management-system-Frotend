@@ -20,10 +20,12 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { useAuth } from "@/lib/useAuth"
 import { useStore } from "@/lib/store"
 import { Plus, Edit, Trash2, Search } from "lucide-react"
 
 export default function ProductsPage() {
+  useAuth()
   const { products, setProducts, categories, suppliers } = useStore()
   const [searchQuery, setSearchQuery] = useState("")
   const [dialogOpen, setDialogOpen] = useState(false)

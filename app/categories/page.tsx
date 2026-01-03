@@ -2,6 +2,7 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useAuth } from "@/lib/useAuth"
 import { Sidebar } from "@/components/sidebar"
 import { Header } from "@/components/header"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -21,6 +22,7 @@ import { useStore } from "@/lib/store"
 import { Plus, Edit, Trash2, FolderTree } from "lucide-react"
 
 export default function CategoriesPage() {
+  useAuth()
   const { categories, setCategories } = useStore()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editingCategory, setEditingCategory] = useState<string | null>(null)
