@@ -11,8 +11,8 @@
 
 🛠️ Tech Stack
 Frontend: Next.js, Tailwind CSS, Redux, Axios
-Backend: Go, MongoDB, JWT
-Tools: Git, Docker, Vercel, Postman
+Backend: Node.js, MongoDB, JWT
+Tools: Git, Render, Vercel, Postman
 
 🚀 Quick Start
 # Clone repository
